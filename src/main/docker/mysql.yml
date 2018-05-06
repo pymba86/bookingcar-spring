@@ -1,0 +1,19 @@
+version: '2'
+services:
+    bx-spring-mysql:
+        image: bx-spring
+        environment:
+            - SPRING_PROFILES_ACTIVE=mysql
+            - SPRING_DATASOURCE_URL=jdbc:mysql://bx-db-mysql:3306/bx?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SLEEP_START=60 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    bx-db-mysql:
+        image: mysql:5.7.20
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_DATABASE=bx
+            - MYSQL_ROOT_PASSWORD=root
+        ports:
+            - 3306:3306
+        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8 --explicit_defaults_for_timestamp
