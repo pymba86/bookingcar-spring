@@ -25,7 +25,6 @@ public class CarActuatorResource {
 
     private final Logger log = LoggerFactory.getLogger(CarActuatorResource.class);
 
-    private static final String ENTITY_NAME = "carActuator";
 
     private final CarActuatorRepository carActuatorRepository;
 
@@ -44,12 +43,12 @@ public class CarActuatorResource {
     public ResponseEntity<CarActuator> createCarActuator(@Valid @RequestBody CarActuator carActuator) throws URISyntaxException {
         log.debug("REST request to save CarActuator : {}", carActuator);
         if (carActuator.getId() != null) {
-            throw new BadRequestAlertException("A new carActuator cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new carActuator cannot already have an ID", "idexists");
         }
         CarActuator result = carActuatorRepository.save(carActuator);
         return ResponseEntity.created(new URI("/api/car-actuators/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -69,8 +68,8 @@ public class CarActuatorResource {
         }
         CarActuator result = carActuatorRepository.save(carActuator);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, carActuator.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(carActuator.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -82,7 +81,7 @@ public class CarActuatorResource {
     public List<CarActuator> getAllCarActuators() {
         log.debug("REST request to get all CarActuators");
         return carActuatorRepository.findAll();
-        }
+    }
 
     /**
      * GET  /car-actuators/:id : get the "id" carActuator.
@@ -108,6 +107,6 @@ public class CarActuatorResource {
     public ResponseEntity<Void> deleteCarActuator(@PathVariable Long id) {
         log.debug("REST request to delete CarActuator : {}", id);
         carActuatorRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(id.toString())).build();
     }
 }

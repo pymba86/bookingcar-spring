@@ -26,7 +26,6 @@ public class CarGearboxResource {
 
     private final Logger log = LoggerFactory.getLogger(CarGearboxResource.class);
 
-    private static final String ENTITY_NAME = "carGearbox";
 
     private final CarGearboxRepository carGearboxRepository;
 
@@ -45,11 +44,11 @@ public class CarGearboxResource {
     public ResponseEntity<CarGearbox> createCarGearbox(@Valid @RequestBody CarGearbox carGearbox) throws URISyntaxException {
         log.debug("REST request to save CarGearbox : {}", carGearbox);
         if (carGearbox.getId() != null) {
-            throw new BadRequestAlertException("A new carGearbox cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new carGearbox cannot already have an ID", "idexists");
         }
         CarGearbox result = carGearboxRepository.save(carGearbox);
         return ResponseEntity.created(new URI("/api/car-gearboxes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(result.getId().toString()))
             .body(result);
     }
 
@@ -70,7 +69,7 @@ public class CarGearboxResource {
         }
         CarGearbox result = carGearboxRepository.save(carGearbox);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, carGearbox.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert( carGearbox.getId().toString()))
             .body(result);
     }
 
@@ -109,6 +108,6 @@ public class CarGearboxResource {
     public ResponseEntity<Void> deleteCarGearbox(@PathVariable Long id) {
         log.debug("REST request to delete CarGearbox : {}", id);
         carGearboxRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(id.toString())).build();
     }
 }

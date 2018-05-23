@@ -13,28 +13,28 @@ public final class HeaderUtil {
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("bx-alert", message);
-        headers.add("bx-params", param);
+        headers.add("Alert", message);
+        headers.add("Params", param);
         return headers;
     }
 
-    public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert("A new " + entityName + " is created with identifier " + param, param);
+    public static HttpHeaders createEntityCreationAlert(String param) {
+        return createAlert("Create: " + param, param);
     }
 
-    public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert("A " + entityName + " is updated with identifier " + param, param);
+    public static HttpHeaders createEntityUpdateAlert( String param) {
+        return createAlert("Update: " + param, param);
     }
 
-    public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert("A " + entityName + " is deleted with identifier " + param, param);
+    public static HttpHeaders createEntityDeletionAlert(String param) {
+        return createAlert("Delete: " + param, param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         log.error("Entity processing failed, {}", defaultMessage);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("bx-error", defaultMessage);
-        headers.add("bx-params", entityName);
+        headers.add("Error", defaultMessage);
+        headers.add("Params", entityName);
         return headers;
     }
 }

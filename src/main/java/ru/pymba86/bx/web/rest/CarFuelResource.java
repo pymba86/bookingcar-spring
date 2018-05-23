@@ -25,7 +25,6 @@ public class CarFuelResource {
 
     private final Logger log = LoggerFactory.getLogger(CarFuelResource.class);
 
-    private static final String ENTITY_NAME = "carFuel";
 
     private final CarFuelRepository carFuelRepository;
 
@@ -44,11 +43,11 @@ public class CarFuelResource {
     public ResponseEntity<CarFuel> createCarFuel(@Valid @RequestBody CarFuel carFuel) throws URISyntaxException {
         log.debug("REST request to save CarFuel : {}", carFuel);
         if (carFuel.getId() != null) {
-            throw new BadRequestAlertException("A new carFuel cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new carFuel cannot already have an ID", "idexists");
         }
         CarFuel result = carFuelRepository.save(carFuel);
         return ResponseEntity.created(new URI("/api/car-fuels/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert( result.getId().toString()))
             .body(result);
     }
 
@@ -69,7 +68,7 @@ public class CarFuelResource {
         }
         CarFuel result = carFuelRepository.save(carFuel);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, carFuel.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(carFuel.getId().toString()))
             .body(result);
     }
 
@@ -108,6 +107,6 @@ public class CarFuelResource {
     public ResponseEntity<Void> deleteCarFuel(@PathVariable Long id) {
         log.debug("REST request to delete CarFuel : {}", id);
         carFuelRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(id.toString())).build();
     }
 }

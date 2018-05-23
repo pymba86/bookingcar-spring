@@ -25,7 +25,6 @@ public class LocationResource {
 
     private final Logger log = LoggerFactory.getLogger(LocationResource.class);
 
-    private static final String ENTITY_NAME = "location";
 
     private final LocationRepository locationRepository;
 
@@ -44,11 +43,11 @@ public class LocationResource {
     public ResponseEntity<Location> createLocation(@Valid @RequestBody Location location) throws URISyntaxException {
         log.debug("REST request to save Location : {}", location);
         if (location.getId() != null) {
-            throw new BadRequestAlertException("A new location cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new location cannot already have an ID", "idexists");
         }
         Location result = locationRepository.save(location);
         return ResponseEntity.created(new URI("/api/locations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert( result.getId().toString()))
             .body(result);
     }
 
@@ -69,7 +68,7 @@ public class LocationResource {
         }
         Location result = locationRepository.save(location);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, location.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(location.getId().toString()))
             .body(result);
     }
 
@@ -108,6 +107,6 @@ public class LocationResource {
     public ResponseEntity<Void> deleteLocation(@PathVariable Long id) {
         log.debug("REST request to delete Location : {}", id);
         locationRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(id.toString())).build();
     }
 }

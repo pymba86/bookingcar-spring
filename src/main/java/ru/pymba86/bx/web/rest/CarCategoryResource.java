@@ -26,7 +26,6 @@ public class CarCategoryResource {
 
     private final Logger log = LoggerFactory.getLogger(CarCategoryResource.class);
 
-    private static final String ENTITY_NAME = "carCategory";
 
     private final CarCategoryRepository carCategoryRepository;
 
@@ -45,12 +44,12 @@ public class CarCategoryResource {
     public ResponseEntity<CarCategory> createCarCategory(@Valid @RequestBody CarCategory carCategory) throws URISyntaxException {
         log.debug("REST request to save CarCategory : {}", carCategory);
         if (carCategory.getId() != null) {
-            throw new BadRequestAlertException("A new carCategory cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new carCategory cannot already have an ID", "idexists");
         }
         CarCategory result = carCategoryRepository.save(carCategory);
         return ResponseEntity.created(new URI("/api/car-categories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -70,8 +69,8 @@ public class CarCategoryResource {
         }
         CarCategory result = carCategoryRepository.save(carCategory);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, carCategory.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(carCategory.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -83,7 +82,7 @@ public class CarCategoryResource {
     public List<CarCategory> getAllCarCategories() {
         log.debug("REST request to get all CarCategories");
         return carCategoryRepository.findAll();
-        }
+    }
 
     /**
      * GET  /car-categories/:id : get the "id" carCategory.
@@ -109,6 +108,6 @@ public class CarCategoryResource {
     public ResponseEntity<Void> deleteCarCategory(@PathVariable Long id) {
         log.debug("REST request to delete CarCategory : {}", id);
         carCategoryRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(id.toString())).build();
     }
 }
