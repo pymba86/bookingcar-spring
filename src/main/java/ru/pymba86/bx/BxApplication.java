@@ -16,15 +16,17 @@ import java.util.Collection;
 import ru.pymba86.bx.config.DefaultProfileUtil;
 import ru.pymba86.bx.config.Constants;
 
-@ComponentScan
 @SpringBootApplication
-@EnableAutoConfiguration
 public class BxApplication {
 
     private static final Logger log = LoggerFactory.getLogger(BxApplication.class);
 
+    private final Environment env;
+
     @Inject
-    private Environment env;
+    public BxApplication(Environment env) {
+        this.env = env;
+    }
 
     /**
      * Инициализирует приложение.
