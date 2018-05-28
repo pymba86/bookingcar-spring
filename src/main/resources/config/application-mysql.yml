@@ -3,16 +3,14 @@ server:
     port: 8080
 
 spring:
-    jpa:
+ jpa:
+        properties:
+            hibernate:
+                default_schema: bx
+                dialect: org.hibernate.dialect.MySQLDialect
+                naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         hibernate:
-            ddl_auto: none
-            default_schema: bx
-            dialect: org.hibernate.dialect.MySQLDialect
-            naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
-
-
-naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
-
+            ddl_auto: validate
 
 spring:
     profiles:
@@ -22,8 +20,6 @@ spring:
         username: root
         password: root
         driver-class-name: com.mysql.jdbc.Driver
-
-
-flyway:
-    locations: classpath:db/migration/mysql
-    schemas: bx
+    flyway:
+        locations: classpath:db/migration/mysql
+        schemas: bx

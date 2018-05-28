@@ -1,0 +1,17 @@
+version: '2'
+services:
+    bx-spring-postgres:
+        image: bx-spring
+        environment:
+            SPRING_PROFILES_ACTIVE: postgres
+            SPRING_DATASOURCE_URL: jdbc:postgresql://bx-db-postgres:5432/bx
+            SLEEP_START: 60
+        ports:
+            - 8080:8080
+    bx-db-postgres:
+        image: postgres:9.5
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: bx
+        ports:
+            - 5432:5432
