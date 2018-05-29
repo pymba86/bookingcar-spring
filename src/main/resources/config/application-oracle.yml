@@ -6,10 +6,11 @@ spring:
     jpa:
         properties:
             hibernate:
-                dialect: org.hibernate.dialect.Oracle11Dialect
+                show_sql: true
+                dialect: org.hibernate.dialect.Oracle10gDialect
                 naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         hibernate:
-            ddl_auto: validate
+            ddl_auto: create
 
 spring:
     profiles:
@@ -21,3 +22,4 @@ spring:
         driver-class-name: oracle.jdbc.driver.OracleDriver
     flyway:
         locations: classpath:db/migration/oracle
+        enabled: false
