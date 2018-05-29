@@ -8,14 +8,14 @@ spring:
         url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
         username: sa
         password: sa
+        driver-class-name: org.h2.Driver
 
 spring:
     jpa:
         properties:
             hibernate:
                 dataSourceClassName: org.h2.Driver
-                default_schema: bx
-                dialect: org.hibernate.dialect.MySQLDialect
+                dialect: org.hibernate.dialect.H2Dialect
                 naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         hibernate:
             ddl_auto: create

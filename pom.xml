@@ -5,8 +5,8 @@
 
     <groupId>ru.pymba86</groupId>
     <artifactId>bx</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>0.1.1</version>
+    <packaging>jar</packaging>
 
     <name>bx</name>
     <description>bx - bookingcar</description>
