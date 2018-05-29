@@ -77,12 +77,11 @@ CREATE TABLE "orders" (
   "date_end"     TIMESTAMP NOT NULL,
   "customer"     INTEGER   NOT NULL,
   "status"       INTEGER   NOT NULL,
-  "car_id"       INTEGER   NOT NULL,
-  "car_location" INTEGER   NOT NULL
+  "car_id"       INTEGER   NOT NULL
 );
 
 ALTER TABLE "orders"
-  ADD CONSTRAINT "fk_orders__car_id__car_location" FOREIGN KEY ("car_id", "car_location") REFERENCES "car" ("id", "location");
+  ADD CONSTRAINT "fk_orders__car_id" FOREIGN KEY ("car_id") REFERENCES "car" ("id");
 
 ALTER TABLE "orders"
   ADD CONSTRAINT "fk_orders__customer" FOREIGN KEY ("customer") REFERENCES "customer" ("id");
