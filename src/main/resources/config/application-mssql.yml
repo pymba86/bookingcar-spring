@@ -1,0 +1,26 @@
+
+server:
+    port: 8080
+
+spring:
+    jpa:
+        properties:
+            hibernate:
+                default_schema: public
+                dialect: org.hibernate.dialect.SQLServerDialect
+                naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+        hibernate:
+            ddl_auto: validate
+
+spring:
+    profiles:
+        active: mssql
+    datasource:
+        url: jdbc:sqlserver://localhost;databaseName=bx
+        username: root
+        password: root
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    flyway:
+        locations: classpath:db/migration/mssql
+        schemas: public
+        enabled: false

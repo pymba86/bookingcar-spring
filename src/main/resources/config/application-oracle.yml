@@ -9,16 +9,18 @@ spring:
                 show_sql: true
                 dialect: org.hibernate.dialect.Oracle10gDialect
                 naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+                default_schema: bx
         hibernate:
-            ddl_auto: create
+            ddl_auto: validate
+        database-platform: org.hibernate.dialect.Oracle10gDialect
 
 spring:
     profiles:
         active: oracle
     datasource:
-        url: jdbc:oracle:thin:@localhost:1521/xe
-        username: system
-        password: oracle
+        url: jdbc:oracle:thin:@localhost:1521:xe
+        username: bx
+        password: bx
         driver-class-name: oracle.jdbc.driver.OracleDriver
     flyway:
         locations: classpath:db/migration/oracle
