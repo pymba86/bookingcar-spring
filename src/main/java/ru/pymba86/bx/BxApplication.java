@@ -13,6 +13,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Locale;
+
 import ru.pymba86.bx.config.DefaultProfileUtil;
 import ru.pymba86.bx.config.Constants;
 
@@ -61,6 +63,7 @@ public class BxApplication {
      * @throws UnknownHostException Если вы используете локальный адресс
      */
     public static void main(String[] args) throws UnknownHostException {
+        Locale.setDefault(Locale.ENGLISH);
         SpringApplication app = new SpringApplication(BxApplication.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();

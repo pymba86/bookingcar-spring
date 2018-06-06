@@ -7,12 +7,10 @@ spring:
         properties:
             hibernate:
                 show_sql: true
-                dialect: org.hibernate.dialect.Oracle10gDialect
-                naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+                dialect: org.hibernate.dialect.OracleDialect
                 default_schema: bx
         hibernate:
-            ddl_auto: validate
-        database-platform: org.hibernate.dialect.Oracle10gDialect
+            ddl_auto: none
 
 spring:
     profiles:
